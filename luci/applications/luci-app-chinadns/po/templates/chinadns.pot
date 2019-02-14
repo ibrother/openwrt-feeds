@@ -1,0 +1,35 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Also filter results inside China from foreign DNS servers"
+msgstr ""
+
+msgid "ChinaDNS"
+msgstr ""
+
+msgid "CHNRoute File"
+msgstr ""
+
+msgid "Enable Bidirectional Filter"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "General Setting"
+msgstr ""
+
+msgid "Local Port"
+msgstr ""
+
+msgid "NOT RUNNING"
+msgstr ""
+
+msgid "RUNNING"
+msgstr ""
+
+msgid "Upstream Servers"
+msgstr ""
+
+msgid "Use commas to separate multiple ip address"
+msgstr ""

@@ -1,0 +1,26 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "DNS-Forwarder"
+msgstr ""
+
+msgid "DNS Server"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "General Setting"
+msgstr ""
+
+msgid "Listen Address"
+msgstr ""
+
+msgid "Listen Port"
+msgstr ""
+
+msgid "NOT RUNNING"
+msgstr ""
+
+msgid "RUNNING"
+msgstr ""

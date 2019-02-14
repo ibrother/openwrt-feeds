@@ -1,0 +1,26 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Ngrok"
+msgstr "Ngrok"
+
+msgid "Ngrok Settings"
+msgstr "Ngrok 配置"
+
+msgid "Secure tunnels to localhost."
+msgstr "穿越 NAT 防火墙的安全隧道"
+
+msgid "Servers"
+msgstr "服务器"
+
+msgid "Ngrok Host"
+msgstr "Ngrok 主机"
+
+msgid "Ngrok Port"
+msgstr "Ngrok 端口"
+
+msgid "Auth Token"
+msgstr "认证令牌"
+
+msgid "Tunnels"
+msgstr "隧道"
