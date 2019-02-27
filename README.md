@@ -1,36 +1,29 @@
 # packages
-packages for OpenWRT or LEDE
+packages for OpenWRT
 
-## 使用 OpenWRT SDK 编译
+## Developer Guide
 
-具体参考 [sdk](https://openwrt.org/docs/guide-developer/using_the_sdk)
+[Using the SDK](https://openwrt.org/docs/guide-developer/using_the_sdk)
 
-#### 编辑`feeds.conf.default`文件，加入下面一行
+## User Guide
 
-```
-src-git shadowsocks https://github.com/shadowsocks/openwrt-feeds.git
-src-git antigfw https://github.com/anti-gfw/packages.git
-```
+If the architecture of the cpu isn't `mipsel_24kc`, follow the developer guide to compile packages first. 
 
+for `mipsel_24kc` cpu, just use [Opkg Package Manager](https://openwrt.org/docs/guide-user/additional-software/opkg) to add custom feeds
 
-## 使用预编译软件源
+##### edit file `/etc/opkg/customfeeds.conf` 
 
-#### 编辑 `/etc/opkg/customfeeds.conf` 文件，根据 cpu 架构增加下面的内容
-
-* mips_24kc
 
 ```
-src/gz shadowsocks http://dl.ibrother.me/releases/packages-17.01/mips_24kc/shadowsocks
-src/gz antigfw http://dl.ibrother.me/releases/packages-17.01/mips_24kc/antigfw
+src/gz taoluyun https://dl.taoluyun.net/openwrt/snapshots/packages/mipsel_24kc/taoluyun
 ```
 
-#### 信任公钥
+##### add opkg public key
 
 ```bash
-$ wget http://dl.ibrother.me/releases/key-build.pub -P /tmp
+$ wget https://dl.taoluyun.net/openwrt/key-build.pub -P /tmp
 
 $ opkg-key add /tmp/key-build.pub
 ```
 
-
-新需求或报错，欢迎提交PR或[Issues](https://github.com/anti-gfw/packages/issues/new)
+#### [Using the Image Builder](https://openwrt.org/docs/guide-user/additional-software/imagebuilder) to custom official firmware (optional)
