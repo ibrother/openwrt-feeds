@@ -9,6 +9,7 @@ build:
     - ./scripts/feeds install -a -p taoluyun
     - make defconfig
     - make -j1
+    - mv bin $CI_PROJECT_DIR
   artifacts:
     paths:
-      - /home/build/openwrt/bin/packages/mipsel_24kc/taoluyun
+      - bin/packages/mipsel_24kc/taoluyun

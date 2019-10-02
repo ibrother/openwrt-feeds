@@ -9,6 +9,6 @@ LUCI_TITLE:=LuCI support for ChinaDNS
 LUCI_DEPENDS:=+ChinaDNS
 LUCI_PKGARCH:=all
 
-include ../../../../luci/luci.mk
+include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
