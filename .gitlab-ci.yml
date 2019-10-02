@@ -1,0 +1,14 @@
+build:
+  image:
+    name: openwrtorg/sdk:ramips-mt7621-19.07-SNAPSHOT
+  script:
+    - cd /home/build/openwrt
+    - echo $USIGN_SECRET | base64 -d > key-build
+    - echo "src-link taoluyun $CI_PROJECT_DIR" >> feeds.conf.default
+    - ./scripts/feeds update -a
+    - ./scripts/feeds install -a -p taoluyun
+    - make defconfig
+    - make -j1
+  artifacts:
+    paths:
+      - /home/build/openwrt/bin/packages/mipsel_24kc/taoluyun
