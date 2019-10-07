@@ -27,8 +27,9 @@ build-firmware:
     - cd /home/build/openwrt
     - sed "3a src custom file://$CI_PROJECT_DIR/bin/packages/mipsel_24kc/taoluyun" -i repositories.conf
     - mkdir -p files/etc/dnsmasq.d
-    - curl -sLf https://github.com/cokebar/gfwlist2dnsmasq/raw/master/gfwlist2dnsmasq.sh | bash -s -- -p 5300 -s ss_spsce_dst_fw --extra-domain-file extra-domain-list.txt -o ./files/etc/dnsmasq.d/dnsmasq_gfwlist_ipset.conf
-    - make image PROFILE="mikrotik_rb750gr3" PACKAGES="block-mount dnsmasq-full dosfstools ipset iptables-mod-tproxy kmod-fs-ext4 kmod-fs-vfat kmod-tcp-bbr kmod-usb2 kmod-usb-storage luci-app-shadowsocks luci-app-sqm luci-app-upnp luci-nginx shadowsocks-libev -dnsmasq -kmod-usb3" FILES=files/ BIN_DIR="$CI_PROJECT_DIR/bin"
+    - curl -sLf https://github.com/cokebar/gfwlist2dnsmasq/raw/master/gfwlist2dnsmasq.sh | bash -s -- -p 5300 -s ss_spsce_dst_fw --extra-domain-file $CI_PROJECT_DIR/extra-domain-list.txt -o ./files/etc/dnsmasq.d/dnsmasq_gfwlist_ipset.conf
+    - make image PROFILE="mikrotik_rb750gr3" PACKAGES="block-mount dnsmasq-full dosfstools ipset iptables-mod-tproxy kmod-fs-ext4 kmod-fs-vfat kmod-tcp-bbr kmod-usb2 kmod-usb-storage luci-app-shadowsocks luci-app-sqm luci-app-upnp luci-nginx shadowsocks-libev -dnsmasq -kmod-usb3" FILES=files/
+    - mv bin/targets $CI_PROJECT_DIR/bin
   artifacts:
     paths:
       - bin/targets/ramips/mt7621
