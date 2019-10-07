@@ -1,6 +1,11 @@
+stages:
+  - build
+  - repack
+
 build-packages:
   image:
     name: openwrtorg/sdk:ramips-mt7621-19.07-SNAPSHOT
+  stage: build
   script:
     - cd /home/build/openwrt
     - echo $USIGN_SECRET | base64 -d > key-build
@@ -17,6 +22,7 @@ build-packages:
 build-firmware:
   image:
     name: openwrtorg/imagebuilder:ramips-mt7621-19.07-SNAPSHOT
+  stage: repack
   script:
     - cd /home/build/openwrt
     - sed "3a src custom file://$CI_PROJECT_DIR/bin/packages/mipsel_24kc/taoluyun" -i repositories.conf
