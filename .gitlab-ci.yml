@@ -28,7 +28,7 @@ build-firmware:
     - sed "3a src taoluyun file://$CI_PROJECT_DIR/bin/packages/mipsel_24kc/taoluyun" -i repositories.conf
     - mkdir -p files/etc/dnsmasq.d
     - curl -sLf https://github.com/cokebar/gfwlist2dnsmasq/raw/master/gfwlist2dnsmasq.sh | bash -s -- -p 5300 -s ss_spec_dst_fw --extra-domain-file $CI_PROJECT_DIR/extra-domain-list.txt -o ./files/etc/dnsmasq.d/dnsmasq_gfwlist_ipset.conf
-    - make image PROFILE="mikrotik_rb750gr3" PACKAGES="block-mount coreutils-sort dnsmasq-full dosfstools ipset iptables-mod-tproxy kmod-fs-ext4 kmod-fs-vfat kmod-tcp-bbr kmod-usb-storage libustream-mbedtls luci-app-adblock luci-app-dns-forwarder luci-app-hd-idle luci-app-minidlna luci-app-shadowsocks luci-app-sqm luci-app-upnp luci-nginx shadowsocks-libev -dnsmasq" FILES=files/
+    - make image PROFILE="mikrotik_rb750gr3" PACKAGES="ariang-nginx block-mount coreutils-sort dnsmasq-full dosfstools ipset iptables-mod-tproxy kmod-fs-ext4 kmod-fs-vfat kmod-tcp-bbr kmod-usb-storage libustream-mbedtls luci-app-adblock luci-app-aria2 luci-app-dns-forwarder luci-app-hd-idle luci-app-minidlna luci-app-shadowsocks luci-app-sqm luci-app-upnp luci-nginx shadowsocks-libev -dnsmasq" FILES=files/
     - mv bin/targets $CI_PROJECT_DIR/bin
   artifacts:
     paths:
