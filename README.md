@@ -1,5 +1,6 @@
-# packages
-packages for OpenWRT
+# OpenWrt feeds
+
+![Build Status](https://github.com/ibrother/openwrt-feeds/workflows/CI/badge.svg)
 
 ## Developer Guide
 
