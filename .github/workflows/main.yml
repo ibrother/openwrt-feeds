@@ -88,7 +88,7 @@ jobs:
         sed "3a src taoluyun file://$GITHUB_WORKSPACE/packages" -i repositories.conf
         mkdir -p files/etc/dnsmasq.d
         curl -sLf https://github.com/cokebar/gfwlist2dnsmasq/raw/master/gfwlist2dnsmasq.sh | bash -s -- -p 5300 -s ss_spec_dst_fw --extra-domain-file $GITHUB_WORKSPACE/extra-domain-list.txt -o ./files/etc/dnsmasq.d/dnsmasq_gfwlist_ipset.conf
-        make image PROFILE="mikrotik_rb750gr3" PACKAGES="ariang-nginx block-mount coreutils-sort dnsmasq-full dosfstools ipset iptables-mod-tproxy kmod-fs-ext4 kmod-fs-vfat kmod-tcp-bbr kmod-usb-storage libustream-mbedtls luci-app-adblock luci-app-aria2 luci-app-dns-forwarder luci-app-hd-idle luci-app-minidlna luci-app-shadowsocks luci-app-sqm luci-app-upnp luci-nginx shadowsocks-libev -dnsmasq -luci -luci-app-opkg -uhttpd" FILES=files/
+        make image PROFILE="mikrotik_rb750gr3" PACKAGES="ariang-nginx block-mount dnsmasq-full dosfstools ipset iptables-mod-tproxy kmod-fs-ext4 kmod-fs-vfat kmod-tcp-bbr kmod-usb-storage luci-app-aria2 luci-app-dns-forwarder luci-app-hd-idle luci-app-minidlna luci-app-shadowsocks luci-app-sqm luci-app-upnp luci-nginx shadowsocks-libev -dnsmasq -luci -luci-app-opkg -uhttpd" FILES=files/
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
