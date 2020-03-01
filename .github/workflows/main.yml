@@ -32,9 +32,9 @@ jobs:
         unzip \
         wget \
         zlib1g-dev
-        wget -c https://downloads.openwrt.org/releases/19.07.1/targets/ramips/mt7621/openwrt-sdk-19.07.1-ramips-mt7621_gcc-7.5.0_musl.Linux-x86_64.tar.xz
-        tar xf openwrt-sdk-19.07.1-ramips-mt7621_gcc-7.5.0_musl.Linux-x86_64.tar.xz
-        cd openwrt-sdk-19.07.1-ramips-mt7621_gcc-7.5.0_musl.Linux-x86_64
+        wget -c https://downloads.openwrt.org/releases/19.07.2/targets/ramips/mt7621/openwrt-sdk-19.07.2-ramips-mt7621_gcc-7.5.0_musl.Linux-x86_64.tar.xz
+        tar xf openwrt-sdk-19.07.2-ramips-mt7621_gcc-7.5.0_musl.Linux-x86_64.tar.xz
+        cd openwrt-sdk-19.07.2-ramips-mt7621_gcc-7.5.0_musl.Linux-x86_64
         echo $USIGN_SECRET | base64 -d > key-build
         echo "src-link taoluyun $GITHUB_WORKSPACE" >> feeds.conf.default
         ./scripts/feeds update -a
@@ -47,7 +47,7 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: packages
-        path: /home/runner/work/_temp/_github_home/openwrt-sdk-19.07.1-ramips-mt7621_gcc-7.5.0_musl.Linux-x86_64/bin/packages/mipsel_24kc/taoluyun
+        path: /home/runner/work/_temp/_github_home/openwrt-sdk-19.07.2-ramips-mt7621_gcc-7.5.0_musl.Linux-x86_64/bin/packages/mipsel_24kc/taoluyun
 
   repack:
     needs: build
@@ -82,9 +82,9 @@ jobs:
         unzip \
         wget \
         zlib1g-dev
-        wget -c https://downloads.openwrt.org/releases/19.07.1/targets/ramips/mt7621/openwrt-imagebuilder-19.07.1-ramips-mt7621.Linux-x86_64.tar.xz
-        tar xf openwrt-imagebuilder-19.07.1-ramips-mt7621.Linux-x86_64.tar.xz
-        cd openwrt-imagebuilder-19.07.1-ramips-mt7621.Linux-x86_64
+        wget -c https://downloads.openwrt.org/releases/19.07.2/targets/ramips/mt7621/openwrt-imagebuilder-19.07.2-ramips-mt7621.Linux-x86_64.tar.xz
+        tar xf openwrt-imagebuilder-19.07.2-ramips-mt7621.Linux-x86_64.tar.xz
+        cd openwrt-imagebuilder-19.07.2-ramips-mt7621.Linux-x86_64
         sed "3a src taoluyun file://$GITHUB_WORKSPACE/packages" -i repositories.conf
         mkdir -p files/etc/dnsmasq.d
         curl -sLf https://github.com/cokebar/gfwlist2dnsmasq/raw/master/gfwlist2dnsmasq.sh | bash -s -- -p 5300 -s ss_spec_dst_fw --extra-domain-file $GITHUB_WORKSPACE/extra-domain-list.txt -o ./files/etc/dnsmasq.d/dnsmasq_gfwlist_ipset.conf
@@ -93,4 +93,4 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: firmware
-        path: /home/runner/work/_temp/_github_home/openwrt-imagebuilder-19.07.1-ramips-mt7621.Linux-x86_64/bin/targets/ramips/mt7621
+        path: /home/runner/work/_temp/_github_home/openwrt-imagebuilder-19.07.2-ramips-mt7621.Linux-x86_64/bin/targets/ramips/mt7621
