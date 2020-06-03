@@ -3,9 +3,8 @@ name: CI
 on: [push]
 
 jobs:
-  build:
-
-    runs-on: ubuntu-18.04
+  build-mt7621:
+    runs-on: ubuntu-20.04
     container:
       image: debian:10
     steps:
@@ -46,12 +45,57 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
-        name: packages
+        name: packages-mt7621
         path: /home/runner/work/_temp/_github_home/openwrt-sdk-19.07.2-ramips-mt7621_gcc-7.5.0_musl.Linux-x86_64/bin/packages/mipsel_24kc/taoluyun
 
-  repack:
-    needs: build
-    runs-on: ubuntu-18.04
+  build-mvebu-cortexa53:
+    runs-on: ubuntu-20.04
+    container:
+      image: debian:10
+    steps:
+    - uses: actions/checkout@v1
+    - name: build packages
+      run: |
+        cd $HOME
+        apt-get update
+        apt-get install -y \
+        build-essential \
+        curl \
+        file \
+        gawk \
+        gettext \
+        git \
+        libncurses5-dev \
+        libssl-dev \
+        python2.7 \
+        python3 \
+        rsync \
+        subversion \
+        sudo \
+        swig \
+        unzip \
+        wget \
+        zlib1g-dev
+        wget -c https://downloads.openwrt.org/snapshots/targets/mvebu/cortexa53/openwrt-sdk-mvebu-cortexa53_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        tar xf openwrt-sdk-mvebu-cortexa53_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        cd openwrt-sdk-mvebu-cortexa53_gcc-8.4.0_musl.Linux-x86_64
+        echo $USIGN_SECRET | base64 -d > key-build
+        echo "src-link taoluyun $GITHUB_WORKSPACE" >> feeds.conf.default
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a -p taoluyun
+        make defconfig
+        make -j1
+      env:
+        USIGN_SECRET: ${{ secrets.USIGN_SECRET }}
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: packages-mvebu-cortexa53
+        path: /home/runner/work/_temp/_github_home/openwrt-sdk-mvebu-cortexa53_gcc-8.4.0_musl.Linux-x86_64.tar.xz/bin/packages/aarch64_cortex-a53/taoluyun
+
+  repack-mt7621:
+    needs: build-mt7621
+    runs-on: ubuntu-20.04
     container:
       image: debian:10
     steps:
@@ -59,7 +103,7 @@ jobs:
     - name: Download artifact
       uses: actions/download-artifact@v1.0.0
       with:
-        name: packages
+        name: packages-mt7621
     - name: build packages
       run: |
         cd $HOME
@@ -92,5 +136,51 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
-        name: firmware
+        name: firmware-mt7621
         path: /home/runner/work/_temp/_github_home/openwrt-imagebuilder-19.07.2-ramips-mt7621.Linux-x86_64/bin/targets/ramips/mt7621
+
+  repack-mvebu-cortexa53:
+    needs: build-mvebu-cortexa53
+    runs-on: ubuntu-20.04
+    container:
+      image: debian:10
+    steps:
+    - uses: actions/checkout@v1
+    - name: Download artifact
+      uses: actions/download-artifact@v1.0.0
+      with:
+        name: packages-mvebu-cortexa53
+    - name: build packages
+      run: |
+        cd $HOME
+        apt-get update
+        apt-get install -y \
+        build-essential \
+        curl \
+        file \
+        gawk \
+        gettext \
+        git \
+        libncurses5-dev \
+        libssl-dev \
+        python2.7 \
+        python3 \
+        rsync \
+        subversion \
+        sudo \
+        swig \
+        unzip \
+        wget \
+        zlib1g-dev
+        wget -c https://downloads.openwrt.org/snapshots/targets/mvebu/cortexa53/openwrt-imagebuilder-mvebu-cortexa53.Linux-x86_64.tar.xz
+        tar xf openwrt-imagebuilder-mvebu-cortexa53.Linux-x86_64.tar.xz
+        cd openwrt-imagebuilder-mvebu-cortexa53.Linux-x86_64
+        sed "3a src taoluyun file://$GITHUB_WORKSPACE/packages" -i repositories.conf
+        mkdir -p files/etc/dnsmasq.d
+        curl -sLf https://github.com/cokebar/gfwlist2dnsmasq/raw/master/gfwlist2dnsmasq.sh | bash -s -- -p 5300 -s ss_spec_dst_fw --extra-domain-file $GITHUB_WORKSPACE/extra-domain-list.txt -o ./files/etc/dnsmasq.d/dnsmasq_gfwlist_ipset.conf
+        make image PROFILE="glinet_gl-mv1000" PACKAGES="ariang-nginx block-mount dnsmasq-full dosfstools ipset iptables-mod-tproxy kmod-fs-ext4 kmod-fs-vfat kmod-tcp-bbr kmod-usb-storage luci-app-aria2 luci-app-dns-forwarder luci-app-hd-idle luci-app-minidlna luci-app-shadowsocks luci-app-sqm luci-app-upnp luci-nginx shadowsocks-libev -dnsmasq -luci -luci-app-opkg -uhttpd" FILES=files/
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: firmware-mvebu-cortexa53
+        path: /home/runner/work/_temp/_github_home/openwrt-imagebuilder-mvebu-cortexa53.Linux-x86_64/bin/targets/mvebu/cortexa53
