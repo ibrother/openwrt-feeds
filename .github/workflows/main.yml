@@ -91,7 +91,7 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: packages-mvebu-cortexa53
-        path: /home/runner/work/_temp/_github_home/openwrt-sdk-mvebu-cortexa53_gcc-8.4.0_musl.Linux-x86_64.tar.xz/bin/packages/aarch64_cortex-a53/taoluyun
+        path: /home/runner/work/_temp/_github_home/openwrt-sdk-mvebu-cortexa53_gcc-8.4.0_musl.Linux-x86_64/bin/packages/aarch64_cortex-a53/taoluyun
 
   repack-mt7621:
     needs: build-mt7621
