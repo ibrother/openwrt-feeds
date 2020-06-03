@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build-mt7621:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     container:
       image: debian:10
     steps:
@@ -49,7 +49,7 @@ jobs:
         path: /home/runner/work/_temp/_github_home/openwrt-sdk-19.07.2-ramips-mt7621_gcc-7.5.0_musl.Linux-x86_64/bin/packages/mipsel_24kc/taoluyun
 
   build-mvebu-cortexa53:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     container:
       image: debian:10
     steps:
@@ -95,7 +95,7 @@ jobs:
 
   repack-mt7621:
     needs: build-mt7621
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     container:
       image: debian:10
     steps:
@@ -141,7 +141,7 @@ jobs:
 
   repack-mvebu-cortexa53:
     needs: build-mvebu-cortexa53
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     container:
       image: debian:10
     steps:
