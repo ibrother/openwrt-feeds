@@ -1,0 +1,11 @@
+{
+	"luci-app-dns-forwarder": {
+		"description": "Grant UCI access for luci-app-dns-forwarder",
+		"read": {
+			"uci": [ "dns-forwarder" ]
+		},
+		"write": {
+			"uci": [ "dns-forwarder" ]
+		}
+	}
+}
