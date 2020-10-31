@@ -5,15 +5,13 @@ on: [push]
 jobs:
   build-mt7621:
     runs-on: ubuntu-18.04
-    container:
-      image: debian:10
     steps:
     - uses: actions/checkout@v1
     - name: build packages
       run: |
         cd $HOME
-        apt-get update
-        apt-get install -y \
+        sudo apt-get update
+        sudo apt-get install -y \
         build-essential \
         curl \
         file \
@@ -46,19 +44,17 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: packages-mt7621
-        path: /home/runner/work/_temp/_github_home/openwrt-sdk-19.07.4-ramips-mt7621_gcc-7.5.0_musl.Linux-x86_64/bin/packages/mipsel_24kc/taoluyun
+        path: /home/runner/openwrt-sdk-19.07.4-ramips-mt7621_gcc-7.5.0_musl.Linux-x86_64/bin/packages/mipsel_24kc/taoluyun
 
   build-mvebu-cortexa53:
     runs-on: ubuntu-18.04
-    container:
-      image: debian:10
     steps:
     - uses: actions/checkout@v1
     - name: build packages
       run: |
         cd $HOME
-        apt-get update
-        apt-get install -y \
+        sudo apt-get update
+        sudo apt-get install -y \
         build-essential \
         curl \
         file \
@@ -91,19 +87,17 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: packages-mvebu-cortexa53
-        path: /home/runner/work/_temp/_github_home/openwrt-sdk-mvebu-cortexa53_gcc-8.4.0_musl.Linux-x86_64/bin/packages/aarch64_cortex-a53/taoluyun
+        path: /home/runner/openwrt-sdk-mvebu-cortexa53_gcc-8.4.0_musl.Linux-x86_64/bin/packages/aarch64_cortex-a53/taoluyun
 
   build-rockchip-armv8:
     runs-on: ubuntu-18.04
-    container:
-      image: debian:10
     steps:
     - uses: actions/checkout@v1
     - name: build packages
       run: |
         cd $HOME
-        apt-get update
-        apt-get install -y \
+        sudo apt-get update
+        sudo apt-get install -y \
         build-essential \
         curl \
         file \
@@ -136,13 +130,11 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: packages-rockchip-armv8
-        path: /home/runner/work/_temp/_github_home/openwrt-sdk-rockchip-armv8_gcc-8.4.0_musl.Linux-x86_64/bin/packages/aarch64_generic/taoluyun
+        path: /home/runner/openwrt-sdk-rockchip-armv8_gcc-8.4.0_musl.Linux-x86_64/bin/packages/aarch64_generic/taoluyun
 
   repack-mt7621:
     needs: build-mt7621
     runs-on: ubuntu-18.04
-    container:
-      image: debian:10
     steps:
     - uses: actions/checkout@v1
     - name: Download artifact
@@ -152,8 +144,8 @@ jobs:
     - name: build packages
       run: |
         cd $HOME
-        apt-get update
-        apt-get install -y \
+        sudo apt-get update
+        sudo apt-get install -y \
         build-essential \
         curl \
         file \
@@ -182,13 +174,11 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: firmware-mt7621
-        path: /home/runner/work/_temp/_github_home/openwrt-imagebuilder-19.07.4-ramips-mt7621.Linux-x86_64/bin/targets/ramips/mt7621
+        path: /home/runner/openwrt-imagebuilder-19.07.4-ramips-mt7621.Linux-x86_64/bin/targets/ramips/mt7621
 
   repack-mvebu-cortexa53:
     needs: build-mvebu-cortexa53
     runs-on: ubuntu-18.04
-    container:
-      image: debian:10
     steps:
     - uses: actions/checkout@v1
     - name: Download artifact
@@ -198,8 +188,8 @@ jobs:
     - name: build packages
       run: |
         cd $HOME
-        apt-get update
-        apt-get install -y \
+        sudo apt-get update
+        sudo apt-get install -y \
         build-essential \
         curl \
         file \
@@ -228,13 +218,11 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: firmware-mvebu-cortexa53
-        path: /home/runner/work/_temp/_github_home/openwrt-imagebuilder-mvebu-cortexa53.Linux-x86_64/bin/targets/mvebu/cortexa53
+        path: /home/runner/openwrt-imagebuilder-mvebu-cortexa53.Linux-x86_64/bin/targets/mvebu/cortexa53
 
   repack-rockchip-armv8:
     needs: build-rockchip-armv8
     runs-on: ubuntu-18.04
-    container:
-      image: debian:10
     steps:
     - uses: actions/checkout@v1
     - name: Download artifact
@@ -244,8 +232,8 @@ jobs:
     - name: build packages
       run: |
         cd $HOME
-        apt-get update
-        apt-get install -y \
+        sudo apt-get update
+        sudo apt-get install -y \
         build-essential \
         curl \
         file \
@@ -274,4 +262,4 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: firmware-rockchip-armv8
-        path: /home/runner/work/_temp/_github_home/openwrt-imagebuilder-rockchip-armv8.Linux-x86_64/bin/targets/rockchip/armv8
+        path: /home/runner/openwrt-imagebuilder-rockchip-armv8.Linux-x86_64/bin/targets/rockchip/armv8
