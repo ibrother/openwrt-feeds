@@ -79,7 +79,6 @@ jobs:
         echo "src-link taoluyun $GITHUB_WORKSPACE" >> feeds.conf.default
         ./scripts/feeds update -a
         ./scripts/feeds install -a -p taoluyun
-        sed -i "s|package/libs/libcxx|feeds/base/package/libs/libcxx|g" feeds/base/package/libs/libcxxabi/Makefile
         make defconfig
         make -j1
       env:
@@ -123,7 +122,6 @@ jobs:
         echo "src-link taoluyun $GITHUB_WORKSPACE" >> feeds.conf.default
         ./scripts/feeds update -a
         ./scripts/feeds install -a -p taoluyun
-        sed -i "s|package/libs/libcxx|feeds/base/package/libs/libcxx|g" feeds/base/package/libs/libcxxabi/Makefile
         make defconfig
         make -j1
       env:
