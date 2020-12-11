@@ -211,6 +211,7 @@ jobs:
         tar xf openwrt-imagebuilder-mvebu-cortexa53.Linux-x86_64.tar.xz
         cd openwrt-imagebuilder-mvebu-cortexa53.Linux-x86_64
         sed "3a src taoluyun file://$GITHUB_WORKSPACE/packages-mvebu-cortexa53" -i repositories.conf
+        cp $GITHUB_WORKSPACE/key-build.pub keys/$(./staging_dir/host/bin/usign -F -p $GITHUB_WORKSPACE/key-build.pub)
         mkdir -p files/etc/dnsmasq.d
         curl -sLf https://github.com/cokebar/gfwlist2dnsmasq/raw/master/gfwlist2dnsmasq.sh | bash -s -- -p 5300 -s ss_spec_dst_fw --extra-domain-file $GITHUB_WORKSPACE/extra-domain-list.txt -o ./files/etc/dnsmasq.d/dnsmasq_gfwlist_ipset.conf
         make image PROFILE="glinet_gl-mv1000" PACKAGES="ariang-nginx block-mount dnsmasq-full dosfstools https-dns-proxy ipset iptables-mod-tproxy kmod-fs-ext4 kmod-fs-vfat kmod-tcp-bbr kmod-usb-storage luci-app-aria2 luci-app-dns-forwarder luci-app-frpc luci-app-hd-idle luci-app-minidlna luci-app-shadowsocks luci-app-sqm luci-app-upnp luci-nginx shadowsocks-libev -dnsmasq -luci -luci-app-opkg -uhttpd" FILES=files/
@@ -255,6 +256,7 @@ jobs:
         tar xf openwrt-imagebuilder-rockchip-armv8.Linux-x86_64.tar.xz
         cd openwrt-imagebuilder-rockchip-armv8.Linux-x86_64
         sed "3a src taoluyun file://$GITHUB_WORKSPACE/packages-rockchip-armv8" -i repositories.conf
+        cp $GITHUB_WORKSPACE/key-build.pub keys/$(./staging_dir/host/bin/usign -F -p $GITHUB_WORKSPACE/key-build.pub)
         mkdir -p files/etc/dnsmasq.d
         curl -sLf https://github.com/cokebar/gfwlist2dnsmasq/raw/master/gfwlist2dnsmasq.sh | bash -s -- -p 5300 -s ss_spec_dst_fw --extra-domain-file $GITHUB_WORKSPACE/extra-domain-list.txt -o ./files/etc/dnsmasq.d/dnsmasq_gfwlist_ipset.conf
         make image PROFILE="friendlyarm_nanopi-r2s" PACKAGES="ariang-nginx block-mount dnsmasq-full dosfstools https-dns-proxy ipset iptables-mod-tproxy kmod-fs-ext4 kmod-fs-vfat kmod-tcp-bbr kmod-usb-storage luci-app-aria2 luci-app-dns-forwarder luci-app-frpc luci-app-hd-idle luci-app-minidlna luci-app-shadowsocks luci-app-sqm luci-app-upnp luci-nginx shadowsocks-libev -dnsmasq -luci -luci-app-opkg -uhttpd" FILES=files/
