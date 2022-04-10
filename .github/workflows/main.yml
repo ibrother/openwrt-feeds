@@ -34,9 +34,9 @@ jobs:
         cd openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64
         echo $USIGN_SECRET | base64 -d > key-build
         echo "src-link taoluyun $GITHUB_WORKSPACE" >> feeds.conf.default
-        echo "src-git v2ray https://github.com/kuoruan/openwrt-v2ray.git^37a5e8fe05e4a88357f0f1b72d836159925a57a0" >> feeds.conf.default
+        git clone https://github.com/kuoruan/openwrt-v2ray.git -b v4.44.0-1 $GITHUB_WORKSPACE/net/v2ray-core
         ./scripts/feeds update -a
-        ./scripts/feeds install -a -p v2ray
+        ./scripts/feeds install -a -p taoluyun
         make defconfig
         make -j1
       env:
@@ -45,7 +45,7 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: packages-x86_64
-        path: /home/runner/openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64/bin/packages/x86_64/v2ray
+        path: /home/runner/openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64/bin/packages/x86_64/taoluyun
 
   repack-x86_64:
     needs: build-x86_64
