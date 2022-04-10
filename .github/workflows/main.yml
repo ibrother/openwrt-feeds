@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build-x86_64:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v1
     - name: build packages
@@ -29,13 +29,14 @@ jobs:
         unzip \
         wget \
         zlib1g-dev
-        wget -c https://downloads.openwrt.org/releases/19.07.6/targets/x86/64/openwrt-sdk-19.07.6-x86-64_gcc-7.5.0_musl.Linux-x86_64.tar.xz
-        tar xf openwrt-sdk-19.07.6-x86-64_gcc-7.5.0_musl.Linux-x86_64.tar.xz
-        cd openwrt-sdk-19.07.6-x86-64_gcc-7.5.0_musl.Linux-x86_64
+        wget -c https://downloads.openwrt.org/releases/21.02.2/targets/x86/64/openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        tar xf openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        cd openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64
         echo $USIGN_SECRET | base64 -d > key-build
         echo "src-link taoluyun $GITHUB_WORKSPACE" >> feeds.conf.default
+        echo "src-git v2ray https://github.com/kuoruan/openwrt-v2ray.git^37a5e8fe05e4a88357f0f1b72d836159925a57a0" >> feeds.conf.default
         ./scripts/feeds update -a
-        ./scripts/feeds install -a -p taoluyun
+        ./scripts/feeds install -a -p v2ray
         make defconfig
         make -j1
       env:
@@ -44,7 +45,7 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: packages-x86_64
-        path: /home/runner/openwrt-sdk-19.07.6-x86-64_gcc-7.5.0_musl.Linux-x86_64/bin/packages/x86_64/taoluyun
+        path: /home/runner/openwrt-sdk-21.02.2-x86-64_gcc-8.4.0_musl.Linux-x86_64/bin/packages/x86_64/v2ray
 
   repack-x86_64:
     needs: build-x86_64
